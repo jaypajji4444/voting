@@ -1,0 +1,72 @@
+/*
+Here we user closure to avoid making variables public that is we can say that the 
+the variable bjp,congress is made provate to bjpparty and congress party and no oustdr an acess it
+threofrrehis avoids hacker to misuse hte code
+threfore
+1)bjp variable ,increment function,stts are made private to bjpparrty.
+2) outside if we write bjp=2000 or  bjpparty.bjp=0 it wont make difference to orignal votes
+the reason os that ewe have note returned votess i.e we have not exposed it globally therefore they can be altered only inside the respective cariable like 
+bjpparty...
+*/
+
+ var bjpparty=(function ()
+{
+  let bjp=0;
+    function increment()
+    {
+       bjp++;
+    }
+    function stats()
+    {
+        console.log("Total  BJP votes:"+bjp);
+    }
+
+    return{
+        vote:increment,
+        result:stats
+    }
+}
+   
+)();
+
+
+var congressparty=(
+    function()
+    {
+        let congress=0;
+        function increment()
+        {
+            congress++;   
+        }
+
+        function stats()
+        {
+            console.log("Total congress votes:"+congress)
+        }
+
+        return {vote:increment, result:stats}
+    }
+)();
+
+ const votingoptions=[bjpparty.vote,congressparty.vote];
+ const nop=100;
+
+ function voteGenerator(max,min)
+{
+    return Math.floor(Math.random()*(max -min+1))+min;
+}
+
+
+
+for(let i=0;i<=nop-1;i++)
+{
+    var votecollect=voteGenerator(1,0);
+    votingoptions[votecollect]();
+ 
+}
+
+bjpparty.result();
+congressparty.result();
+
+
+
